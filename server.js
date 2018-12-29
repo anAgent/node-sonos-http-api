@@ -76,13 +76,10 @@ if (settings.https) {
 }
 
 server = http.createServer(requestHandler);
-server = http.createServer(requestHandler);
 
 // Setup Socket IO
 const io = require('socket.io')(server);
-io.on('connection', function (socket) {
-  api.setSocketIO(socket);
-});
+io.on('connection', (socket) => api.setSocketIO(socket));
 
 process.on('unhandledRejection', (err) => {
   logger.error(err);
