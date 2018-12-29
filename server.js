@@ -50,7 +50,8 @@ var requestHandler = function (req, res) {
         api.requestHandler(req, res);
       }
     });
-  }).resume();
+  })
+    .resume();
 };
 
 let server;
@@ -64,7 +65,7 @@ if (settings.https) {
     options.key = fs.readFileSync(settings.https.key);
     options.cert = fs.readFileSync(settings.https.cert);
   } else {
-    logger.error("Insufficient configuration for https");
+    logger.error('Insufficient configuration for https');
     return;
   }
 
@@ -75,6 +76,13 @@ if (settings.https) {
 }
 
 server = http.createServer(requestHandler);
+server = http.createServer(requestHandler);
+
+// Setup Socket IO
+const io = require('socket.io')(server);
+io.on('connection', function (socket) {
+  api.setSocketIO(socket);
+});
 
 process.on('unhandledRejection', (err) => {
   logger.error(err);
@@ -87,8 +95,8 @@ server.listen(settings.port, host, function () {
 
 server.on('error', (err) => {
   if (err.code && err.code === 'EADDRINUSE') {
-    logger.error(`Port ${settings.port} seems to be in use already. Make sure the sonos-http-api isn't 
-    already running, or that no other server uses that port. You can specify an alternative http port 
+    logger.error(`Port ${settings.port} seems to be in use already. Make sure the sonos-http-api isn't
+    already running, or that no other server uses that port. You can specify an alternative http port
     with property "port" in settings.json`);
   } else {
     logger.error(err);

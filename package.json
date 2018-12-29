@@ -22,6 +22,7 @@
     "music-metadata": "^3.1.5",
     "node-static": "^0.7.9",
     "request-promise": "~1.0.2",
+    "socket.io": "^2.2.0",
     "sonos-discovery": "https://github.com/jishi/node-sonos-discovery/archive/v1.7.2.tar.gz",
     "wav-file-info": "0.0.8"
   },
