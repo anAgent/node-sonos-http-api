@@ -78,8 +78,23 @@ if (settings.https) {
 server = http.createServer(requestHandler);
 
 // Setup Socket IO
+let clients = {};
 const io = require('socket.io')(server);
-io.on('connection', (socket) => api.setSocketIO(socket));
+io.on('connection', (socket) => {
+  const id = socket.id;
+  const ip = socket.request.connection.remoteAddress;
+  const client =  clients[socket.id] || {
+    socket: socket,
+    ip
+  };
+  client.socket.on('disconnect', ()=> {
+    logger.info(`Client Disconnected: ${ip}`);
+    delete clients[id];
+  });
+
+  logger.info(`Client Connected: ${ip}`);
+});
+api.setSocketIO(io);
 
 process.on('unhandledRejection', (err) => {
   logger.error(err);
