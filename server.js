@@ -5,9 +5,9 @@ const fs = require('fs');
 const auth = require('basic-auth');
 const SonosSystem = require('sonos-discovery');
 const logger = require('sonos-discovery/lib/helpers/logger');
-const SonosHttpAPI = require('./lib/sonos-http-api.js');
+const SonosHttpAPI = require('./src/lib/sonos-http-api.js');
 const nodeStatic = require('node-static');
-const settings = require('./settings');
+const settings = require('./src/settings');
 
 const fileServer = new nodeStatic.Server(settings.webroot);
 const discovery = new SonosSystem(settings);

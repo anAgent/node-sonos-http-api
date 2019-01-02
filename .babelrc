@@ -1,0 +1,6 @@
+{
+  "env": {
+
+  },
+  "presets": ["@babel/preset-flow"]
+}

@@ -3,8 +3,14 @@
   "version": "1.6.6",
   "description": "A simple node app for controlling a Sonos system with basic HTTP requests",
   "scripts": {
-    "start": "node server.js",
-    "lint": "eslint lib"
+    "build": "npm-run-all build:babel build:dirs build:static",
+    "build:babel": "rm -rf ./dist && babel ./src --out-dir ./dist --copy-files --ignore spec.js",
+    "build:dirs": "mkdirp ./dist/static && mkdirp ./dist/cache",
+    "build:static": "cp -r ./src/static/* ./dist/static",
+    "start": "babel-node ./src/server.js",
+    "start:prod": "node ./dist/server.js",
+    "lint": "eslint lib",
+    "babel": "babel"
   },
   "author": "Jimmy Shimizu <jimmy@shimizu.se>",
   "repository": {
@@ -12,16 +18,25 @@
     "url": "https://github.com/jishi/node-sonos-http-api.git"
   },
   "dependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/preset-flow": "^7.0.0",
     "anesidora": "^1.2.0",
     "aws-sdk": "^2.12.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "basic-auth": "~1.1.0",
     "debug": "^4.1.1",
+    "flow": "^0.2.3",
     "fuse.js": "^2.5.0",
     "html-entities": "^1.2.1",
     "json5": "^0.5.1",
     "mime": "^1.4.1",
+    "mkdirp": "^0.5.1",
     "music-metadata": "^3.1.5",
     "node-static": "^0.7.9",
+    "npm-run-all": "^4.1.5",
     "request-promise": "~1.0.2",
     "socket.io": "^2.2.0",
     "sonos-discovery": "https://github.com/jishi/node-sonos-discovery/archive/v1.7.2.tar.gz",
@@ -31,11 +46,16 @@
     "node": ">=4.0.0",
     "npm": "^2.0.0"
   },
-  "main": "lib/sonos-http-api.js",
+  "main": "src/lib/sonos-http-api.js",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-loader": "^8.0.4",
     "eslint": "^4.8.0",
     "eslint-config-airbnb-base": "^12.0.1",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint-plugin-import": "^2.7.0",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.1.2"
   }
 }

@@ -1,4 +1,4 @@
-'use strict';
+
 const fs = require('fs');
 const path = require('path');
 const logger = require('sonos-discovery/lib/helpers/logger');
@@ -14,7 +14,7 @@ function merge(target, source) {
   });
 }
 
-var settings = {
+const settings: Settings = {
   port: 5005,
   ip: "0.0.0.0",
   securePort: 5006,

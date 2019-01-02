@@ -113,12 +113,12 @@ function loadTracks(type, tracksJson) {
           }
         } else {
           skip = (track.albumName != albumName);
-        }          
+        }
         if (!skip) {
           tracksArray.push({
             trackName: track.trackName,
             artistName: track.artistName,
-            albumTrackNumber:track.albumTrackNumber, 
+            albumTrackNumber:track.albumTrackNumber,
             uri: track.uri,
             metadata: track.metadata
           });
@@ -128,7 +128,7 @@ function loadTracks(type, tracksJson) {
       return tracksArray;
     }, []);
   }
-  
+
   if (type == 'album') {
     tracks.queueTracks.sort(function(a,b) {
       if (a.artistName != b.artistName) {
