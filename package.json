@@ -4,7 +4,8 @@
   "description": "A simple node app for controlling a Sonos system with basic HTTP requests",
   "scripts": {
     "build": "npm-run-all build:babel build:dirs build:static",
-    "build:babel": "rm -rf ./dist && babel ./src --out-dir ./dist --copy-files --ignore spec.js",
+    "build:production": "npm-run-all build:babel build:dirs build:static",
+    "build:babel": "SET NODE_ENV=production rm -rf ./dist && babel ./src --out-dir ./dist --copy-files --ignore spec.js",
     "build:dirs": "mkdirp ./dist/static && mkdirp ./dist/cache",
     "build:static": "cp -r ./src/static/* ./dist/static",
     "start": "babel-node ./src/server.js",
@@ -52,6 +53,7 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
     "babel-loader": "^8.0.4",
+    "babel-preset-minify": "^0.5.0",
     "eslint": "^4.8.0",
     "eslint-config-airbnb-base": "^12.0.1",
     "eslint-plugin-import": "^2.7.0",
